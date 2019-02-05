@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">View Events</string>
+    <string name="tab_text_1">EVENTS</string>
+    <string name="tab_text_2">UPCOMING</string>
+    <string name="tab_text_3">ATTENDED</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format"> </string>
+</resources>
