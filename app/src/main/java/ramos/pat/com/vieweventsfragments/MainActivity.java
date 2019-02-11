@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ViewPagerAdapter adapter;
+    private TabLayout mTablayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +61,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create list view
-
+        mTablayout = findViewById(R.id.tabs);
+        mViewPager = findViewById(R.id.container);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         list = findViewById(R.id.list1);
 
         //create instance of class MyAdapter
-        MyAdapter adapter = new MyAdapter(this, dates, titles, descriptions);
+        adapter.AddFragment(new Tab1(), "");
+        adapter.AddFragment(new Tab2(), "");
+        adapter.AddFragment(new Tab3(), "");
+//        MyAdapter adapter = new MyAdapter(this, dates, titles, descriptions);
+        mViewPager.setAdapter(adapter);
+        mTablayout.setupWithViewPager(mViewPager);
 
-        list.setAdapter(adapter);
+        mTablayout.getTabAt(0);
+        mTablayout.getTabAt(1);
+        mTablayout.getTabAt(2);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setElevation(0);
+
+
+//        list.setAdapter(adapter);
 
 
         //handle item clicks
-
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -100,9 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);

@@ -113,7 +113,7 @@ android:background="#fcfcfc">
             <android.support.v7.widget.CardView
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:id="@+id/bankcardId"
+                android:id="@+id/eventId"
                 android:layout_width="140dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
@@ -124,24 +124,28 @@ android:background="#fcfcfc">
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <Button
-                        android:layout_width="140dp"
-                        android:layout_height="150dp"
-                        android:drawableTop="@drawable/ic_event"
-                        android:background="#ffffff"
-                        android:id="@+id/button"
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/circlebtnbg1"
+                        android:src="@drawable/ic_event"
+                        android:padding="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:fontFamily="@font/poppinsmedium"
-                        android:text="View Events"/>
-
-
-
+                        android:layout_marginTop="10dp"
+                        android:text="View Event"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:id="@+id/portId"
                 android:layout_width="140dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
