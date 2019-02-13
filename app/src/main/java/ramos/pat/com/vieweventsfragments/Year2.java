@@ -18,14 +18,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tab1 extends Fragment {
+public class Year2 extends Fragment {
     private RecyclerView mRecyclerView;
-//    private List<> mList;
+    //    private List<> mList;
     RecyclerView list;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    String dates [] = {"Feb 14", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00"};
-    String titles[] = {"Valentine's Day", "Title Two", "Title Three", "Title Four","Title Five","Title Six","Title Seven","Title Eight"};
-    String descriptions[] = {"UST Grounds", "Description Two...", "Description Three...", "Description Four...","Description Five...","Description Six...","Description Seven...","Description Eight..."};
+    String dates [] = {"Jan 01", "Jan 02", "Jan 14", "Feb 03", "Feb 14", "Feb 30", "Mar 03", "Mar 05"};
+    String titles[] = {"Title One", "Title Two", "Title Three", "Title Four","Title Five","Title Six","Title Seven","Title Eight"};
+    String descriptions[] = {"Description One...", "Description Two...", "Description Three...", "Description Four...","Description Five...","Description Six...","Description Seven...","Description Eight..."};
 
     private List<Contact> listContact;
 

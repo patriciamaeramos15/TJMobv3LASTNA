@@ -27,7 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Portfolio extends AppCompatActivity {
 
     //list view per tab
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_portfolio);
 
 
         // Create list view
@@ -68,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
         list = findViewById(R.id.list1);
 
         //create instance of class MyAdapter
-        adapter.AddFragment(new Tab1(), "EVENTS");
-        adapter.AddFragment(new Tab2(), "UPCOMING");
-        adapter.AddFragment(new Tab3(), "ATTENDED");
+        adapter.AddFragment(new Year1(), "1ST YEAR");
+        adapter.AddFragment(new Year2(), "2ND YEAR");
+        adapter.AddFragment(new Year3(), "3RD YEAR");
+        adapter.AddFragment(new Year4(), "4TH YEAR");
 //        MyAdapter adapter = new MyAdapter(this, dates, titles, descriptions);
         mViewPager.setAdapter(adapter);
         mTablayout.setupWithViewPager(mViewPager);
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         mTablayout.getTabAt(0);
         mTablayout.getTabAt(1);
         mTablayout.getTabAt(2);
+        mTablayout.getTabAt(3);
 
 
 // to set icon for tabs
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   //deleted PlaceholderFragment class from here
+    //deleted PlaceholderFragment class from here
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -217,36 +219,41 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            //Returning the current tabs
+            //Returning the current years
             switch (position) {
-//                case 0:
-//                    Tab1 tab1 = new Tab1();
-//                    return tab1;
+                case 0:
+                    Year1 activity_year1 = new Year1();
+                    return activity_year1;
                 case 1:
-                    Tab2 tab2 = new Tab2();
-                    return tab2;
+                    Year2 activity_year2 = new Year2();
+                    return activity_year2;
                 case 2:
-                    Tab3 tab3 = new Tab3();
-                    return tab3;
+                    Year3 activity_year3 = new Year3();
+                    return activity_year3;
+                case 3:
+                    Year4 activity_year4 = new Year4();
+                    return activity_year4;
                 default:
                     return null;
             }
         }
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "EVENTS";
+                    return "1ST YEAR";
                 case 1:
-                    return "UPCOMING";
+                    return "2ND YEAR";
                 case 2:
-                    return "ATTENDED";
+                    return "3RD YEAR";
+                case 3:
+                    return "4TH YEAR";
             }
             return null;
         }

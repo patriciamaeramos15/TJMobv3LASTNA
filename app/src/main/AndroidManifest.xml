@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/tjlogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/tjlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
@@ -21,6 +21,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:label="View Events"
             android:parentActivityName=".SecondActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".SecondActivity" />
@@ -28,6 +29,27 @@
         <activity android:name=".VerifyCode" />
         <activity android:name=".ConfirmCode" />
         <activity android:name=".VerifySuccess" />
+        <activity
+            android:name=".Portfolio"
+            android:label="View Portfolio"
+            android:parentActivityName=".SecondActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Year1"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Year2"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Year3"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Year4"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".EventDetails"
+            android:label="Event Details"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"  />
+        <activity android:name=".ScanSuccess" />
+        <activity android:name=".VerifyLoginCred" />
+        <activity android:name=".VerLoginCredSuc" />
     </application>
 
 </manifest>
