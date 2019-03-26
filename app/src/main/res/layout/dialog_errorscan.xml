@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:gravity="center">
 
     <ImageView
@@ -17,6 +15,7 @@
         android:elevation="5dp"
         android:layout_alignParentRight="true"/>
 
+
     <android.support.v7.widget.CardView
         android:layout_width="400dp"
         android:layout_height="wrap_content"
@@ -27,11 +26,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="350dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
                 android:orientation="vertical">
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/poppinssemibold"
-                    android:text="Error Scanning QR Code!"
+                    android:text="Resend Verification Code"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -51,7 +51,9 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_error" />
+                    android:src="@drawable/ic_resend" />
+
+
 
                 <TextView
                     android:id="@+id/exResend"
@@ -61,12 +63,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="There was an error scanning the QR Code. Please try again."
+                    android:text="A verification code was resent to your e-mail account."
                     android:textAlignment="center"
                     android:textSize="19sp" />
 
                 <Button
-                    android:id="@+id/retrybtn"
+                    android:id="@+id/okbtn"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -74,7 +76,7 @@
                     android:background="@drawable/bgbtn"
                     android:fontFamily="@font/poppinsmedium"
                     android:onClick="onSaveButtonClick"
-                    android:text="RETRY"
+                    android:text="OK"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="18sp" />
