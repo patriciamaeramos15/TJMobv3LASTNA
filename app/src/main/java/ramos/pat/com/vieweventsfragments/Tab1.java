@@ -23,9 +23,9 @@ public class Tab1 extends Fragment {
 //    private List<> mList;
     RecyclerView list;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    String dates [] = {"Feb 14", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00"};
-    String titles[] = {"Valentine's Day", "Title Two", "Title Three", "Title Four","Title Five","Title Six","Title Seven","Title Eight"};
-    String descriptions[] = {"UST Grounds", "Description Two...", "Description Three...", "Description Four...","Description Five...","Description Six...","Description Seven...","Description Eight..."};
+    String dates [] = {"Feb 26", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00", "Date 00"};
+    String titles[] = {"Science Week Opening Ceremony", "Title Two", "Title Three", "Title Four","Title Five","Title Six","Title Seven","Title Eight"};
+    String descriptions[] = {"Medicine Auditorium", "Description Two...", "Description Three...", "Description Four...","Description Five...","Description Six...","Description Seven...","Description Eight..."};
 
     private List<Contact> listContact;
 

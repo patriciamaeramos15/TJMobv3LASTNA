@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:gravity="center">
 
     <ImageView
@@ -16,6 +14,7 @@
         android:layout_marginRight="7dp"
         android:elevation="5dp"
         android:layout_alignParentRight="true"/>
+
 
     <android.support.v7.widget.CardView
         android:layout_width="400dp"
@@ -32,39 +31,41 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="350dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp">
+                android:layout_marginBottom="25dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/titleResend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Resend Verification Code"
-                    android:textSize="20sp"
                     android:fontFamily="@font/poppinssemibold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:text="Resend Verification Code"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/imageResend"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/ic_resend"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_resend" />
+
+
 
                 <TextView
                     android:id="@+id/exResend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="A verification code was resent to your e-mail account."
-                    android:textAlignment="center"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:textSize="19sp"
-                    android:fontFamily="@font/poppinsmedium"/>
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="A verification code was resent to your e-mail account."
+                    android:textAlignment="center"
+                    android:textSize="19sp" />
 
                 <Button
                     android:id="@+id/okbtn"

@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/poppinssemibold"
-                    android:text="Resend Verification Code"
+                    android:text="You're not within the location"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -51,7 +51,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_resend" />
+                    android:src="@drawable/error_scan" />
 
 
 
@@ -63,12 +63,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="A verification code was resent to your e-mail account."
+                    android:text="Please scan within the location of the event only."
                     android:textAlignment="center"
                     android:textSize="19sp" />
 
                 <Button
-                    android:id="@+id/okbtn"
+                    android:id="@+id/retrybtn"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -76,7 +76,7 @@
                     android:background="@drawable/bgbtn"
                     android:fontFamily="@font/poppinsmedium"
                     android:onClick="onSaveButtonClick"
-                    android:text="OK"
+                    android:text="RETRY"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="18sp" />

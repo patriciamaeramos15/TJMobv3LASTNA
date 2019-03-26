@@ -26,7 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="260dp"
         android:id="@+id/layoutInput"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
@@ -70,21 +70,24 @@
 
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="93dp"
-        android:layout_marginRight="93dp"
-        android:fontFamily="@font/poppinsmedium"
-        android:gravity="top|center"
-        android:text="VERIFY YOUR ACCOUNT"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="15sp" />
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="VERIFY YOUR ACCOUNT"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
 
     // INSERT STEP VIEW HERE
 
@@ -93,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        />
+        android:gravity="center"/>
 
     <ImageView
         android:id="@+id/imageVIew"
@@ -109,5 +112,14 @@
         android:layout_marginTop="51dp"
         android:layout_marginEnd="127dp"
         android:layout_marginRight="127dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/mainlottieLoad"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="290dp"
+        android:layout_centerHorizontal="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
 </RelativeLayout>

@@ -1,13 +1,197 @@
 package ramos.pat.com.vieweventsfragments;
 
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.baoyachi.stepview.HorizontalStepView;
+import com.baoyachi.stepview.bean.StepBean;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import okhttp3.ConnectionSpec;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegisterLoading extends AppCompatActivity {
+    private TextView tvone ;
+    private TextView tvtwo ;
+    private LottieAnimationView LottieLoad;
+    public String registerUrl = "https://93690df1.ngrok.io/thomasianjourney/Register/registerUser";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_loading);
+        stepView();
+        lottie();
+        Intent intent = getIntent();
+
+        String email = intent.getStringExtra("email");
+        String mobile = intent.getStringExtra("mobileNumber");
+        int studentsId = intent.getIntExtra("studentsId", -1);
+
+
+        final Intent intent1 = new Intent(RegisterLoading.this,VerifyCode.class);
+        intent1.putExtra("studentsId", studentsId);
+        intent1.putExtra("email", email);
+
+        Thread timer = new Thread() {
+            public void run () {
+                try {
+                    sleep(3000) ;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    startActivity(intent1);
+                    finish();
+                }
+            }
+        };
+        timer.start();
+
+        OkHttpHandler okHttpHandler = new OkHttpHandler();
+
+        okHttpHandler.execute(registerUrl, email, mobile);
+
+        intent.putExtra("studentsId", studentsId);
+        intent.putExtra("email", email);
+        System.out.println(email);
     }
+
+    public void lottie(){
+        //ANIMATION LOTTIE
+        LottieLoad = findViewById(R.id.mainlottieLoad);
+        LottieLoad.setScale(7f);
+        LottieLoad.setVisibility(View.VISIBLE);
+        LottieLoad.setAnimation(R.raw.load);
+        LottieLoad.playAnimation();
+
+        tvone = (TextView) findViewById(R.id.tvone);
+        tvtwo = (TextView) findViewById(R.id.tvtwo);
+        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
+        tvone.startAnimation(myanim);
+        tvtwo.startAnimation(myanim);
+    }
+    public void stepView(){
+        //STEPVIEW
+
+        HorizontalStepView stepview = (HorizontalStepView) findViewById(R.id.step_view);
+
+        List<StepBean> stepsBeanList = new ArrayList<>();
+        StepBean stepBean0 = new StepBean("",0);
+        StepBean stepBean1 = new StepBean("",-1);
+        StepBean stepBean2 = new StepBean("",-1);
+        stepsBeanList.add(stepBean0);
+        stepsBeanList.add(stepBean1);
+        stepsBeanList.add(stepBean2);
+
+        stepview
+                .setStepViewTexts(stepsBeanList)//总步骤
+                .setTextSize(12)//set textSize
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(RegisterLoading.this, android.R.color.black))
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(RegisterLoading.this, R.color.uncompleted_text_color))
+                .setStepViewComplectedTextColor(ContextCompat.getColor(RegisterLoading.this, android.R.color.black))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(RegisterLoading.this, R.color.uncompleted_text_color))
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.ic_check_black))
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.ic_radio))
+                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.tiger_rar));
+    }
+
+    public class OkHttpHandler extends AsyncTask<String, Void, String> {
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
+                .build();
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("emailAddress", params[1])
+                        .addFormDataPart("mobileNumber", params[2])
+                        .build();
+
+                Request.Builder builder = new Request.Builder();
+                builder.url(params[0])
+                        .post(requestBody);
+                Request request = builder.build();
+
+                Response response = client.newCall(request).execute();
+
+                System.out.print("Response: " + response.code());
+
+                if (response.isSuccessful()) {
+
+                    return response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            openVerifyCode(s);
+        }
+    }
+
+    public void openVerifyCode(String s) {
+
+        if (!TextUtils.isEmpty(s)) {
+
+            Gson gson = new Gson();
+
+            JsonObject jsonObject = gson.fromJson(s, JsonObject.class);
+
+            String email;
+            String mobileNumber;
+            int studentsId;
+
+            if  (jsonObject.has("data")) {
+
+                JsonObject dataObject = jsonObject.get("data").getAsJsonObject();
+
+                email = dataObject.get("studEmail").getAsString();
+                mobileNumber = dataObject.get("studMobileNumber").getAsString();
+                studentsId = dataObject.get("studentsId").getAsInt();
+
+            }
+
+        }else {
+            Toast.makeText(this, "Email not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
+
+
+
+
+
+
+

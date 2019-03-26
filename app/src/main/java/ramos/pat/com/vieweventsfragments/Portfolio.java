@@ -1,6 +1,9 @@
 package ramos.pat.com.vieweventsfragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -20,12 +23,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
 public class Portfolio extends AppCompatActivity {
 
@@ -54,18 +62,26 @@ public class Portfolio extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private TabLayout mTablayout;
 
+    Dialog dialog_help;
+    ImageView closeDialogHelp;
+
+    TextView txtContent1, txtContent2, txtContent3, txtContent4, txtContent5, txtContent6;
+    Animation animationUp, animationUp1, animationUp2, animationUp3, animationUp4,animationUp5, animationUp6;
+    Animation animationDown, animationDown1, animationDown2, animationDown3, animationDown4, animationDown5, animationDown6 ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
-
+        dialog_help = new Dialog(this);
 
         // Create list view
         mTablayout = findViewById(R.id.tabs);
         mViewPager = findViewById(R.id.container);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        list = findViewById(R.id.list1);
+        list = findViewById(R.id.list2);
 
         //create instance of class MyAdapter
         adapter.AddFragment(new Year1(), "1ST YEAR");
@@ -88,6 +104,7 @@ public class Portfolio extends AppCompatActivity {
 //        tablayout.getTabAt(2).setIcon(R.drawable.ic_star);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
+
 
 
 //        list.setAdapter(adapter);
@@ -140,14 +157,14 @@ public class Portfolio extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
     }
 
@@ -199,6 +216,7 @@ public class Portfolio extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            ShowDialogHelp();
             return true;
         }
 
@@ -258,4 +276,174 @@ public class Portfolio extends AppCompatActivity {
             return null;
         }
     }
+
+    public void ShowDialogHelp() {
+        dialog_help.setContentView(R.layout.dialog_help);
+        closeDialogHelp = (ImageView) dialog_help.findViewById(R.id.closeDialogHelp);
+//        title_text1 = (TextView) dialog_help.findViewById(R.id.title_text1);
+//        title_text2 = (TextView) dialog_help.findViewById(R.id.title_text2);
+//        title_text3 = (TextView) dialog_help.findViewById(R.id.title_text3);
+//        title_text4 = (TextView) dialog_help.findViewById(R.id.title_text4);
+//        title_text5 = (TextView) dialog_help.findViewById(R.id.title_text5);
+//        title_text6 = (TextView) dialog_help.findViewById(R.id.title_text6);
+//        content_text1 = (TextView) dialog_help.findViewById(R.id.content_text1);
+//        content_text2 = (TextView) dialog_help.findViewById(R.id.content_text2);
+//        content_text3 = (TextView) dialog_help.findViewById(R.id.content_text3);
+//        content_text4 = (TextView) dialog_help.findViewById(R.id.content_text4);
+//        content_text5 = (TextView) dialog_help.findViewById(R.id.content_text5);
+//        content_text6 = (TextView) dialog_help.findViewById(R.id.content_text6);
+//        txthelp = (TextView) dialog_help.findViewById(R.id.txthelp);
+//        scrollhelp = (NestedScrollView) dialog_help.findViewById(R.id.scrollhelp);
+//        layouthelp = (LinearLayout) dialog_help.findViewById(R.id.layouthelp);
+        txtContent1 = (TextView) dialog_help.findViewById(R.id.title_text1);
+        TextView txtTitle1 = (TextView) dialog_help.findViewById(R.id.content_text1);
+        txtContent1.setVisibility(View.GONE);
+
+        animationUp1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent1.isShown()){
+                    txtContent1.setVisibility(View.GONE);
+                    txtContent1.startAnimation(animationUp1);
+                }
+                else{
+                    txtContent1.setVisibility(View.VISIBLE);
+                    txtContent1.startAnimation(animationDown1);
+                }
+            }
+        });
+
+        // help 2
+        txtContent2 = (TextView) dialog_help.findViewById(R.id.title_text2);
+        TextView txtTitle2 = (TextView) dialog_help.findViewById(R.id.content_text2);
+        txtContent2.setVisibility(View.GONE);
+
+        animationUp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent2.isShown()){
+                    txtContent2.setVisibility(View.GONE);
+                    txtContent2.startAnimation(animationUp2);
+                }
+                else{
+                    txtContent2.setVisibility(View.VISIBLE);
+                    txtContent2.startAnimation(animationDown2);
+                }
+            }
+        });
+
+        // help 3
+        txtContent3 = (TextView) dialog_help.findViewById(R.id.title_text3);
+        TextView txtTitle3 = (TextView) dialog_help.findViewById(R.id.content_text3);
+        txtContent3.setVisibility(View.GONE);
+
+        animationUp3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent3.isShown()){
+                    txtContent3.setVisibility(View.GONE);
+                    txtContent3.startAnimation(animationUp3);
+                }
+                else{
+                    txtContent3.setVisibility(View.VISIBLE);
+                    txtContent3.startAnimation(animationDown3);
+                }
+            }
+        });
+
+        // help 4
+        txtContent4 = (TextView) dialog_help.findViewById(R.id.title_text4);
+        TextView txtTitle4 = (TextView) dialog_help.findViewById(R.id.content_text4);
+        txtContent4.setVisibility(View.GONE);
+
+        animationUp4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent4.isShown()){
+                    txtContent4.setVisibility(View.GONE);
+                    txtContent4.startAnimation(animationUp4);
+                }
+                else{
+                    txtContent4.setVisibility(View.VISIBLE);
+                    txtContent4.startAnimation(animationDown4);
+                }
+            }
+        });
+
+        // help 5
+        txtContent5 = (TextView) dialog_help.findViewById(R.id.title_text5);
+        TextView txtTitle5 = (TextView) dialog_help.findViewById(R.id.content_text5);
+        txtContent5.setVisibility(View.GONE);
+
+        animationUp5 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown5 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent5.isShown()){
+                    txtContent5.setVisibility(View.GONE);
+                    txtContent5.startAnimation(animationUp5);
+                }
+                else{
+                    txtContent5.setVisibility(View.VISIBLE);
+                    txtContent5.startAnimation(animationDown5);
+                }
+            }
+        });
+
+        // help 6
+        txtContent6 = (TextView) dialog_help.findViewById(R.id.title_text6);
+        TextView txtTitle6 = (TextView) dialog_help.findViewById(R.id.content_text6);
+        txtContent6.setVisibility(View.GONE);
+
+        animationUp6 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animationDown6 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+        txtTitle6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtContent6.isShown()){
+                    txtContent6.setVisibility(View.GONE);
+                    txtContent6.startAnimation(animationUp6);
+                }
+                else{
+                    txtContent6.setVisibility(View.VISIBLE);
+                    txtContent6.startAnimation(animationDown6);
+                }
+            }
+        });
+
+
+
+
+        closeDialogHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_help.dismiss();
+            }
+
+
+        });
+
+        dialog_help.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_help.show();
+
+
+    }
+
+
+
 }

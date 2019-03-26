@@ -8,5 +8,4 @@
         android:icon="@drawable/ic_help"
         app:showAsAction="ifRoom" />
 
-
 </menu>

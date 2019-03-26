@@ -1,4 +1,4 @@
-package com.example.pagod;
+package ramos.pat.com.vieweventsfragments;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

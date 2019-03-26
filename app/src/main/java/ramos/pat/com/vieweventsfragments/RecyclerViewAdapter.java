@@ -53,8 +53,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context mContext;
     List<Contact> mData;
-    Button del, edit, save, cancel, call, message;
-//    private OnItemDeleteListener mListener;
 
     public RecyclerViewAdapter(Context context, List<Contact> data) {
         mContext = context;
@@ -67,8 +65,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
+
+
         v = LayoutInflater.from(mContext).inflate(R.layout.row, viewGroup, false);
         final MyViewHolder vHolder = new MyViewHolder(v);
+        vHolder.item_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //INSERT HERE CODE FOR EVENT DETAILS
+                Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(mContext, EventDetails.class);
+                mContext.startActivity(i);
+
+            }
+        });
+        vHolder.date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(mContext, EventDetails.class);
+                mContext.startActivity(i);
+
+            }
+        });
 
 
 
@@ -99,15 +118,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_desc;
         private TextView tv_date;
         private ImageView img;
-        ViewSwitcher mViewSwitcher;
+        private Button date;
+
 
         public MyViewHolder(View itemView){
             super(itemView);
             item_contact = itemView.findViewById(R.id.contact_item_id);
+            date = itemView.findViewById(R.id.date);
             tv_name = itemView.findViewById(R.id.name_title);
             tv_desc = itemView.findViewById(R.id.desc);
             tv_date = itemView.findViewById(R.id.date);
-            img = itemView.findViewById(R.id.img_contact);
 
         }
     }

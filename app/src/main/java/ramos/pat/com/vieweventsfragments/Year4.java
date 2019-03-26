@@ -22,7 +22,7 @@ public class Year4 extends Fragment {
     private RecyclerView mRecyclerView;
     //    private List<> mList;
     RecyclerView list;
-    private RecyclerViewAdapter mRecyclerViewAdapter;
+    private RecyclerViewAdapterPort mRecyclerViewAdapter;
     String dates [] = {"Jan 01", "Jan 02", "Jan 14", "Feb 03", "Feb 14", "Feb 30", "Mar 03", "Mar 05"};
     String titles[] = {"Title One", "Title Two", "Title Three", "Title Four","Title Five","Title Six","Title Seven","Title Eight"};
     String descriptions[] = {"Description One...", "Description Two...", "Description Three...", "Description Four...","Description Five...","Description Six...","Description Seven...","Description Eight..."};
@@ -34,11 +34,11 @@ public class Year4 extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.tab1, container, false);
-        list = rootView.findViewById(R.id.list1);
-        mRecyclerView = rootView.findViewById(R.id.list1);
+        View rootView = inflater.inflate(R.layout.activity_year4, container, false);
+        list = rootView.findViewById(R.id.list2);
+        mRecyclerView = rootView.findViewById(R.id.list2);
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(getContext(),listContact);
+        mRecyclerViewAdapter = new RecyclerViewAdapterPort(getContext(),listContact);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 

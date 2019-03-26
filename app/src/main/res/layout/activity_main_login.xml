@@ -32,6 +32,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_marginTop="5dp"
             android:textColor="#000000"
@@ -41,6 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/emailAddress"
+            android:inputType="text"
             android:textColor="#797777"
             android:textSize="12.7sp"
             android:fontFamily="@font/poppinsregular"
@@ -58,6 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/mobileNumber"
+            android:inputType="number"
             android:textColor="#797777"
             android:textSize="15sp"
             android:fontFamily="@font/poppinsregular"
@@ -68,6 +73,7 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/contbutton"
+            android:onClick="contAnim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -98,22 +104,22 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="93dp"
-        android:layout_marginRight="93dp"
+        android:layout_marginTop="13dp"
         android:fontFamily="@font/poppinsmedium"
-        android:gravity="top|center"
         android:text="CREATE YOUR ACCOUNT"
+        android:gravity="center"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp" />
-
+    </RelativeLayout>
     // INSERT STEP VIEW HERE
 
     <com.baoyachi.stepview.HorizontalStepView
@@ -121,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        />
+        android:gravity="center" />
 
 
     <ImageView
