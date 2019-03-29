@@ -62,7 +62,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/mobileNumber"
-            android:inputType="number"
+            android:inputType="phone"
             android:textColor="#797777"
             android:textSize="15sp"
             android:fontFamily="@font/poppinsregular"

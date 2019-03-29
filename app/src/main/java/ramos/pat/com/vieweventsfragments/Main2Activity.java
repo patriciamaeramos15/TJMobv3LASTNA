@@ -37,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
         stepView();
@@ -51,13 +51,21 @@ public class Main2Activity extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                Intent intent = new Intent(Main2Activity.this, RegisterLoading.class);
-                intent.putExtra("email", emailAddress.getText().toString());
-                intent.putExtra("mobileNumber", mobileNumber.getText().toString());
-                startActivity(intent);
-                finish();
+                String email = emailAddress.getText().toString();
+                String mobile = mobileNumber.getText().toString();
 
+                if (email != null && !email.isEmpty() && mobile != null && !mobile.isEmpty()) {
 
+                    Intent intent = new Intent(Main2Activity.this, RegisterLoading.class);
+                    intent.putExtra("email", email);
+                    intent.putExtra("mobileNumber", mobile);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+
+                    Toast.makeText(Main2Activity.this, "Email not found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -17,6 +17,7 @@ import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,8 +34,7 @@ public class RegisterLoading extends AppCompatActivity {
     private TextView tvone ;
     private TextView tvtwo ;
     private LottieAnimationView LottieLoad;
-    public String registerUrl = "https://93690df1.ngrok.io/thomasianjourney/Register/registerUser";
-
+    public String registerUrl = "https://ec6a621c.ngrok.io/thomasianjourney/Register/registerUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,38 +42,16 @@ public class RegisterLoading extends AppCompatActivity {
         setContentView(R.layout.activity_register_loading);
         stepView();
         lottie();
-        Intent intent = getIntent();
 
+        Intent intent = getIntent();
         String email = intent.getStringExtra("email");
         String mobile = intent.getStringExtra("mobileNumber");
         int studentsId = intent.getIntExtra("studentsId", -1);
-
-
-        final Intent intent1 = new Intent(RegisterLoading.this,VerifyCode.class);
-        intent1.putExtra("studentsId", studentsId);
-        intent1.putExtra("email", email);
-
-        Thread timer = new Thread() {
-            public void run () {
-                try {
-                    sleep(3000) ;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    startActivity(intent1);
-                    finish();
-                }
-            }
-        };
-        timer.start();
 
         OkHttpHandler okHttpHandler = new OkHttpHandler();
 
         okHttpHandler.execute(registerUrl, email, mobile);
 
-        intent.putExtra("studentsId", studentsId);
-        intent.putExtra("email", email);
         System.out.println(email);
     }
 
@@ -122,7 +100,6 @@ public class RegisterLoading extends AppCompatActivity {
                 .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
                 .build();
 
-
         @Override
         protected String doInBackground(String... params) {
 
@@ -166,7 +143,17 @@ public class RegisterLoading extends AppCompatActivity {
 
             Gson gson = new Gson();
 
-            JsonObject jsonObject = gson.fromJson(s, JsonObject.class);
+            JsonObject jsonObject = new JsonObject();
+            try {
+               jsonObject = gson.fromJson(s, JsonObject.class);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+
+                Toast.makeText(this, "Email not found", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterLoading.this, Main2Activity.class);
+                startActivity(intent);
+                finish();
+            }
 
             String email;
             String mobileNumber;
@@ -180,10 +167,18 @@ public class RegisterLoading extends AppCompatActivity {
                 mobileNumber = dataObject.get("studMobileNumber").getAsString();
                 studentsId = dataObject.get("studentsId").getAsInt();
 
+                Intent intent = new Intent(RegisterLoading.this, VerifyCode.class);
+                intent.putExtra("email",email);
+                intent.putExtra("mobile", mobileNumber);
+                intent.putExtra("studentsId", studentsId);
+                startActivity(intent);
+                finish();
             }
-
-        }else {
-            Toast.makeText(this, "Email not found", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Email not found or Mobile Number is incorrect", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterLoading.this, Main2Activity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

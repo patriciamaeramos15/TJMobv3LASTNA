@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.RecoverySystem;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,10 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,14 +53,14 @@ public class VerifyCode extends AppCompatActivity {
     PinEntryEditText numbercode;
     private LottieAnimationView LottieMail;
 
-    public String registerUrl = "https://72b2c9d8.ngrok.io/thomasianjourney/Register/checkCode";
-
+    public String registerUrl = "https://ec6a621c.ngrok.io/thomasianjourney/Register/checkCode";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_code);
         stepView();
+        lottie();
 
         cancelbtn = findViewById(R.id.cancelbtn);
         resend =    findViewById(R.id.resend);
@@ -65,36 +69,15 @@ public class VerifyCode extends AppCompatActivity {
         emailView = findViewById(R.id.emailView);
 
 
-        LottieMail = findViewById(R.id.mainlottieMail);
-        LottieMail.setScale(1.5f);
-        LottieMail.setVisibility(View.VISIBLE);
-        LottieMail.setAnimation(R.raw.mail);
-        LottieMail.playAnimation();
-
         Intent intent = getIntent();
 
         if(intent != null) {
 
             String email = intent.getStringExtra("email");
-            final int studentsId = intent.getIntExtra("studentsId", -1);
+            final int studentsId = intent.getIntExtra("studentsId", 0);
 
+            System.out.println(email);
             emailView.setText(email);
-
-            if (studentsId != -1) {
-
-                if (numbercode != null) {
-                    numbercode.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
-                        @Override
-                        public void onPinEntered(CharSequence str) {
-                            if (str.toString().equals("123456")) {
-                                Toast.makeText(VerifyCode.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(VerifyCode.this, "FAIL", Toast.LENGTH_SHORT).show();
-                                numbercode.setText(null);
-                            }
-                        }
-                    });
-                }
 
                 dialog_resend = new Dialog(this);
                 resend.setOnClickListener(new View.OnClickListener() {
@@ -105,49 +88,30 @@ public class VerifyCode extends AppCompatActivity {
                 });
                 cancelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        openMain2Activity();
+                    public void onClick(View v) { openMain2Activity();
                     }
                 });
                 verifybtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         OkHttpHandler okHttpHandler = new OkHttpHandler();
 
                         String numberCode = numbercode.getText().toString();
 
                         okHttpHandler.execute(registerUrl, numberCode, studentsId+"");
-
-
-                        if (numberCode == (numbercode.toString())) {
-                            Toast.makeText(VerifyCode.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                            openConfirmCode();
-                        } else
-
-                        {
-                            Toast.makeText(VerifyCode.this, "WRONG VERIFICATION CODE", Toast.LENGTH_SHORT).show();
-                            numbercode.setText(null);
-                        }
                     }
                 });
-            }
-
-
         }
     }
-
     public class OkHttpHandler extends AsyncTask<String, Void, String> {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
                 .build();
+
         @Override
-
         protected String doInBackground(String... params) {
-
             try {
-
                 RequestBody requestBody = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("numbercode", params[1])
@@ -164,23 +128,29 @@ public class VerifyCode extends AppCompatActivity {
                 System.out.print("Response: " + response.code());
 
                 if (response.isSuccessful()) {
-
                     return response.body().string();
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
-        @Override
 
+        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            openConfirmCode();
+            openConfirmCode(s);
         }
     }
 
+
+    public void lottie(){
+        LottieMail = findViewById(R.id.mainlottieMail);
+        LottieMail.setScale(1.5f);
+        LottieMail.setVisibility(View.VISIBLE);
+        LottieMail.setAnimation(R.raw.mail);
+        LottieMail.playAnimation();
+    }
     public void stepView() {
         //STEPVIEW
 
@@ -210,13 +180,6 @@ public class VerifyCode extends AppCompatActivity {
         Intent intent = new Intent(this,Main2Activity.class);
         startActivity(intent);
     }
-
-    public void openConfirmCode() {
-        Intent intent = new Intent(this,ConfirmCode.class);
-        startActivity(intent);
-        finish();
-    }
-
     public void ShowDialogResend() {
         dialog_resend.setContentView(R.layout.dialog_resend);
         closeDialogResend = (ImageView) dialog_resend.findViewById(R.id.closeDialogResend);
@@ -242,7 +205,6 @@ public class VerifyCode extends AppCompatActivity {
         dialog_resend.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_resend.show();
     }
-
     public void CancelAnim(View view) {
         if (view == findViewById(R.id.cancelbtn)) {
             //open verifycode
@@ -251,14 +213,44 @@ public class VerifyCode extends AppCompatActivity {
             Animatoo.animateSlideRight(this);
         }
     }
+//    public void VerifyAnim(View view) {
+//        if (view == findViewById(R.id.verifybtn)) {
+//            open verifycode
+//            startActivity(new Intent(this, ConfirmCode.class));
+//            add animation
+//            Animatoo.animateSlideLeft(this);
+//            finish();
+//        }
 
-    public void VerifyAnim(View view) {
-        if (view == findViewById(R.id.verifybtn)) {
-            //open verifycode
-            startActivity(new Intent(this, ConfirmCode.class));
-            //add animation
-            Animatoo.animateSlideLeft(this);
-            finish();
+    public void openConfirmCode(String s) {
+
+        JsonObject jsonObject = new Gson().fromJson(s, JsonObject.class);
+
+        if (jsonObject != null) {
+
+//            if (jsonObject.get("message").equals("User login successful.")) {
+
+                if (jsonObject.has("data")) {
+
+                    JsonObject dataObject = jsonObject.get("data").getAsJsonObject();
+
+                    int studentsId = dataObject.get("studentsId").getAsInt();
+
+                    System.out.println("STUDENTS ID:" + studentsId);
+
+                    Intent intent = new Intent(this, SecondActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+
+                    Toast.makeText(VerifyCode.this, "Code is incorrect", Toast.LENGTH_LONG).show();
+                }
+            } else {
+
+                Toast.makeText(VerifyCode.this, "null", Toast.LENGTH_LONG).show();
+            }
         }
+//    }
     }
-}
+

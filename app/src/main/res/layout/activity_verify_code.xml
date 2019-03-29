@@ -202,7 +202,6 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/bgbtn"
                 android:fontFamily="@font/poppinsmedium"
-                android:onClick="VerifyAnim"
                 android:text="VERIFY"
                 android:textAllCaps="false"
                 android:textColor="#000000"

@@ -26,14 +26,29 @@ public class ConfirmCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_code);
+        stepView();
+        lottie();
 
-        //ANIMATION LOTTIE
-        LottieLoad = findViewById(R.id.mainlottieLoad);
-        LottieLoad.setScale(7f);
-        LottieLoad.setVisibility(View.VISIBLE);
-        LottieLoad.setAnimation(R.raw.load);
-        LottieLoad.playAnimation();
+        final Intent i = new Intent(this,VerifySuccess.class);
+//        //add animation
+//        Animatoo.animateSlideLeft(this);
+        Thread timer = new Thread() {
+            public void run () {
+                try {
+                    sleep(5000) ;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    startActivity(i);
+                    finish();
+                }
+            }
+        };
+        timer.start();
+    }
 
+    public void stepView() {
         //STEPVIEW
 
         HorizontalStepView stepview = (HorizontalStepView) findViewById(R.id.step_view);
@@ -56,6 +71,16 @@ public class ConfirmCode extends AppCompatActivity {
                 .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(ConfirmCode.this, R.drawable.ic_check_black))
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(ConfirmCode.this, R.drawable.ic_radio))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(ConfirmCode.this, R.drawable.tiger_rar));
+    }
+    public void lottie() {
+        //ANIMATION LOTTIE
+        LottieLoad = findViewById(R.id.mainlottieLoad);
+        LottieLoad.setScale(7f);
+        LottieLoad.setVisibility(View.VISIBLE);
+        LottieLoad.setAnimation(R.raw.load);
+        LottieLoad.playAnimation();
+
+
 
 
         tvone = (TextView) findViewById(R.id.tvone);
@@ -63,24 +88,6 @@ public class ConfirmCode extends AppCompatActivity {
         Animation myanim = AnimationUtils.loadAnimation(this,R.anim.mytransition);
         tvone.startAnimation(myanim);
         tvtwo.startAnimation(myanim);
-        final Intent i = new Intent(this,VerifySuccess.class);
-//        //add animation
-//        Animatoo.animateSlideLeft(this);
-        Thread timer = new Thread() {
-            public void run () {
-                try {
-                    sleep(5000) ;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    startActivity(i);
-                    finish();
-                }
-            }
-        };
-        timer.start();
     }
-
 
 }
