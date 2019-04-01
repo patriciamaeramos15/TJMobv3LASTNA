@@ -13,7 +13,11 @@ tools:context=".MainActivity">
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:fontFamily="@font/poppinsmedium"
+<<<<<<< Updated upstream
         android:text="Recently added per week"
+=======
+        android:text="Recently added per month:"
+>>>>>>> Stashed changes
         android:textColor="#000000"
         android:textSize="15dp" />
 

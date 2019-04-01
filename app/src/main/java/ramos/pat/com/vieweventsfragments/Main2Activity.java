@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+<<<<<<< Updated upstream
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+=======
+>>>>>>> Stashed changes
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,6 +83,8 @@ public class Main2Activity extends AppCompatActivity {
     }
     public void stepView() {
 
+
+
         //STEPVIEW
 
         HorizontalStepView stepview = (HorizontalStepView) findViewById(R.id.step_view);
@@ -103,5 +108,35 @@ public class Main2Activity extends AppCompatActivity {
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(Main2Activity.this, R.drawable.ic_radio))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(Main2Activity.this, R.drawable.tiger_rar));
 
+<<<<<<< Updated upstream
+=======
+
+//        contbutton = (Button) findViewById(R.id.contbutton);
+//        contbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openVerifyCode();
+//            }
+//        });
+    }
+
+    public void openVerifyCode() {
+        Intent intent = new Intent(this,VerifyCode.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
+    //ANIMATION
+
+    public void contAnim(View view) {
+        if (view == findViewById(R.id.contbutton)) {
+            //open verifycode
+            startActivity(new Intent(this, VerifyCode.class));
+            //add animation
+            Animatoo.animateSlideLeft(this);
+        }
+>>>>>>> Stashed changes
     }
 }

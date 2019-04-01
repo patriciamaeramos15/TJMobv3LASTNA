@@ -10,7 +10,11 @@
         android:required="false" />
     <uses-feature
         android:name="android.hardware.camera.front"
+<<<<<<< Updated upstream
         android:required="false" />
+=======
+        android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
+>>>>>>> Stashed changes
     <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
     <uses-feature
         android:name="android.hardware.camera.autofocus"
@@ -34,7 +38,12 @@
         android:roundIcon="@drawable/tjlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+<<<<<<< Updated upstream
         <activity android:name=".RegisterLoading"></activity>
+=======
+        <activity android:name=".MenuPortfolio"></activity>
+        <activity android:name=".RegisterLoading" />
+>>>>>>> Stashed changes
         <activity
             android:name=".Splash"
             android:label="@string/app_name"

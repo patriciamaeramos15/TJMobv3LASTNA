@@ -5,6 +5,24 @@ public class Contact {
     String title;
     String description;
     String date;
+    String id;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -33,11 +51,26 @@ public class Contact {
     public Contact() {
 
     }
+    public Contact(String title, String description, String date, String id, String status) {
 
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.id = id;
+        this.status = status;
+    }
+    public Contact(String title, String description, String date, String id) {
+
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.id = id;
+    }
     public Contact(String title, String description, String date) {
 
         this.title = title;
         this.description = description;
         this.date = date;
+
     }
 }

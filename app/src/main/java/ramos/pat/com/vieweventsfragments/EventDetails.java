@@ -1,6 +1,10 @@
 package ramos.pat.com.vieweventsfragments;
 
 import android.app.Dialog;
+<<<<<<< Updated upstream
+=======
+import android.app.ProgressDialog;
+>>>>>>> Stashed changes
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +12,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+<<<<<<< Updated upstream
+=======
+import android.support.design.widget.Snackbar;
+>>>>>>> Stashed changes
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -18,11 +26,34 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+<<<<<<< Updated upstream
+=======
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+>>>>>>> Stashed changes
 import android.widget.TextView;
 import android.widget.Toast;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+<<<<<<< Updated upstream
+=======
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+
+import okhttp3.ConnectionSpec;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+>>>>>>> Stashed changes
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,6 +70,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+<<<<<<< Updated upstream
 
 public class EventDetails extends AppCompatActivity {
     private OkHttpClient client;
@@ -51,11 +83,30 @@ public class EventDetails extends AppCompatActivity {
     public String url = "https://93690df1.ngrok.io/thomasianjourney/Register/eventTime";
 
 
+=======
+public class EventDetails extends AppCompatActivity {
+    private OkHttpClient client;
+    private Button btnAttend;
+    Dialog dialog_help;
+    ImageView closeDialogHelp;
+    TextView txtContent1, txtContent2, txtContent3, txtContent4, txtContent5, txtContent6;
+    Animation animationUp, animationUp1, animationUp2, animationUp3, animationUp4,animationUp5, animationUp6;
+    Animation animationDown, animationDown1, animationDown2, animationDown3, animationDown4, animationDown5, animationDown6 ;
+    TextView tv_date, tv_title, tv_description, tv_venue, tv_time, tv_point;
+    RelativeLayout eventdetails;
+    public String url = "https://e63eeab9.ngrok.io/thomasianjourney/Register/eventTime";
+    public String eventUrl = "https://e63eeab9.ngrok.io/thomasianjourney/Register/eventDetails";
+    ProgressDialog dialog;
+
+
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dialog = new ProgressDialog(this);
         setContentView(R.layout.activity_eventdetails);
+<<<<<<< Updated upstream
         attend = (Button) findViewById(R.id.attend);
 //        attend.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -66,6 +117,34 @@ public class EventDetails extends AppCompatActivity {
 
         dialog_help = new Dialog(this);
 
+=======
+        tv_date = findViewById(R.id.date);
+        tv_title = findViewById(R.id.title);
+        tv_description = findViewById(R.id.description);
+        tv_venue = findViewById(R.id.venue);
+        tv_time = findViewById(R.id.time);
+        tv_point = findViewById(R.id.point);
+
+        OkHttpHandler2 okHttpHandler2 = new OkHttpHandler2();
+
+        Intent i = getIntent();
+        String id = i.getExtras().getString("activityId");
+        String accountId = "1";
+        okHttpHandler2.execute(eventUrl, id, accountId);
+
+
+        btnAttend = (Button) findViewById(R.id.attend);
+
+//        attend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openVerifyLoginCred();
+//            }
+//        });
+
+        dialog_help = new Dialog(this);
+
+>>>>>>> Stashed changes
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
 
@@ -252,6 +331,12 @@ public class EventDetails extends AppCompatActivity {
             }
         });
 
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
         closeDialogHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,11 +392,73 @@ public class EventDetails extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            textView.setText(s);
+<<<<<<< Updated upstream
             openVerifyLoginCred(s);
+=======
+                openVerifyLoginCred(s);
+>>>>>>> Stashed changes
 //            Toast.makeText(EventDetails.this, ""+s, Toast.LENGTH_SHORT).show();
 
         }
     }
+<<<<<<< Updated upstream
+=======
+    public class OkHttpHandler2 extends AsyncTask<String, Void, String> {
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
+                .build();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Loading...");
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("activityId", params[1])
+                        .addFormDataPart("accountId", params[2])
+                        .build();
+
+                Request.Builder builder = new Request.Builder();
+                builder.url(params[0])
+                        .post(requestBody);
+                Request request = builder.build();
+
+                Response response = client.newCall(request).execute();
+
+                System.out.print("Response: " + response.code());
+
+                if (response.isSuccessful()) {
+
+                    return response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            dialog.hide();
+            getEventDetails(s);
+
+
+        }
+    }
+
+>>>>>>> Stashed changes
 
     private String getDate(){
         DateFormat dfDate = new SimpleDateFormat("yyyy-MM-d");
@@ -322,8 +469,105 @@ public class EventDetails extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+<<<<<<< Updated upstream
     public void openVerifyLoginCred(String s) {
 
+=======
+    public void getEventDetails(String s){
+        dialog.hide();
+        if(!TextUtils.isEmpty(s)){
+            try {
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(s, JsonObject.class);
+                if(jsonObject.has("data")){
+                    JsonObject dataObject = jsonObject.get("data").getAsJsonObject();
+                    String activityName = dataObject.get("activityName").getAsString();
+                    String eventVenue = dataObject.get("eventVenue").getAsString();
+                    String eventDate = dataObject.get("eventDate").getAsString();
+                    String description = dataObject.get("description").getAsString();
+                    String eventendDate = dataObject.get("eventendDate").getAsString();
+                    String points = dataObject.get("points").getAsString();
+                    String attend = dataObject.get("attend").getAsString();
+
+                    String startTime = eventDate.split(" ")[1];
+                    String endTime = eventendDate.split(" ")[1];
+                    String splittedTime = startTime.split(":")[0] + ":" + startTime.split(":")[1];
+                    String splittedEndTime = endTime.split(":")[0] + ":" + endTime.split(":")[1];
+                    DateFormat dfTime = new SimpleDateFormat("hh:mm a");
+                    java.time.format.DateTimeFormatter target = java.time.format.DateTimeFormatter.ofPattern("h:mm a");
+                    java.time.format.DateTimeFormatter source = java.time.format.DateTimeFormatter.ofPattern("HH:mm");
+                    String formattedTime = target.format(source.parse(splittedTime));
+                    String formattedEndTime = target.format(source.parse(splittedEndTime));
+
+                    String date = eventDate.split(" ")[0];
+                    String month = date.split("-")[1];
+
+                    String day = date.split("-")[2];
+                    switch(month){
+                        case "01":
+                            month = "Jan";
+                            break;
+                        case "02":
+                            month = "Feb";
+                            break;
+                        case "03":
+                            month = "Mar";
+                            break;
+                        case "04":
+                            month = "April";
+                            break;
+                        case "05":
+                            month = "May";
+                            break;
+                        case "06":
+                            month = "Jun";
+                            break;
+                        case "07":
+                            month = "Jul";
+                            break;
+                        case "08":
+                            month = "Aug";
+                            break;
+                        case "09":
+                            month = "Sep";
+                            break;
+                        case "10":
+                            month = "Oct";
+                            break;
+                        case "11":
+                            month = "Nov";
+                            break;
+                        case "12":
+                            month = "Dec";
+                            break;
+
+                    }
+
+                    tv_date.setText(month + "\n" + day);
+                    tv_title.setText(activityName);
+                    tv_venue.setText(eventVenue);
+                    tv_time.setText(formattedTime + " : " +formattedEndTime);
+                    tv_description.setText(description);
+                    tv_point.setText(points + " Points");
+                    btnAttend = findViewById(R.id.attend);
+                    if(attend.equals("1")){
+                        btnAttend.setVisibility(View.INVISIBLE);
+                    }
+
+
+
+                }
+            }catch (Exception err){
+                Toast.makeText(this, ""+err, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    public void openVerifyLoginCred(String s)
+    {
+        RelativeLayout eventdetails = findViewById(R.id.eventdetails);
+>>>>>>> Stashed changes
         if (!TextUtils.isEmpty(s)) {
 //            Toast.makeText(EventDetails.this, ""+s, Toast.LENGTH_SHORT).show();
             try{
@@ -345,10 +589,24 @@ public class EventDetails extends AppCompatActivity {
                     Date current = formatter.parse(getDate());
 
                     if(current.before(start)){
+<<<<<<< Updated upstream
                         Toast.makeText(this, "Not yet allowed", Toast.LENGTH_SHORT).show();
                     }else if(current.after(end)){
                         Toast.makeText(this, "Event not available.", Toast.LENGTH_SHORT).show();
                     }else{
+=======
+                        Snackbar snackbar =
+                                Snackbar.make(eventdetails, "Event not yet available.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }else if(current.after(end)){
+                        Snackbar snackbar =
+                                Snackbar.make(eventdetails, "Event no longer available.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }else{
+                        Snackbar snackbar =
+                                Snackbar.make(eventdetails, "Event available.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+>>>>>>> Stashed changes
                         Intent intent = new Intent(this, VerifyLoginCred.class);
                         startActivity(intent);
                         finish();
@@ -367,11 +625,21 @@ public class EventDetails extends AppCompatActivity {
 
     public void ScanAnim(View view) {
         if (view == findViewById(R.id.attend)) {
+<<<<<<< Updated upstream
             OkHttpHandler okHttpHandler = new OkHttpHandler();
             //DITO PAPASOK YUNG ID EVENT SA VIEW EVENTS
             String activityId = "64";
 
             okHttpHandler.execute(url, activityId);
+=======
+
+            OkHttpHandler okHttpHandler = new OkHttpHandler();
+            //DITO PAPASOK YUNG ID NG EVENT SA VIEW EVENTS
+            Intent i = getIntent();
+            String id = i.getExtras().getString("activityId");
+
+            okHttpHandler.execute(url, id);
+>>>>>>> Stashed changes
             //check if current time is within time range
 //            if(currentTime >= startTime && currentTime <= endTime)
 

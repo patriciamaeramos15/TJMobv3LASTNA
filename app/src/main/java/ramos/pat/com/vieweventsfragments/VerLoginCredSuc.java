@@ -2,12 +2,20 @@ package ramos.pat.com.vieweventsfragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -22,6 +30,11 @@ public class VerLoginCredSuc extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
     private LottieAnimationView LottieCheck;
+
+    Dialog dialog_errorqr;
+    Button okbtn;
+    TextView titleErrorQR, exErrorRQ;
+    ImageView closeDialogErrorQR, imageErrorQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +75,7 @@ public class VerLoginCredSuc extends AppCompatActivity {
 //            }
 //        };
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//
+
 //            //    ActivityCompat#requestPermissions
 //            // here to request the missing permissions, and then overriding
 //            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -108,7 +121,10 @@ public class VerLoginCredSuc extends AppCompatActivity {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
 
+
                 String[]  info = contents.split(";");
+
+
                 if(info[0].equals("sana") && info[1].equals("sana") && info[2].equals("hehe")){
                     Toast.makeText(this, contents,Toast.LENGTH_LONG).show();
                     Intent i = new Intent(VerLoginCredSuc.this, ScanSuccess.class);
@@ -116,7 +132,13 @@ public class VerLoginCredSuc extends AppCompatActivity {
                     finish();
 
                 }else{
+
                     //BOSS DITO MO ILAGAY YUNG DIALOG BOX PAG DI NARERECOGNIZE YUNG QRCODE
+
+                    dialog_errorqr = new Dialog(this);
+                    ShowDialogErrorQR();
+
+
                 }
 //                Gson gson = new Gson();
 //                JsonObject jsonObject = gson.fromJson(contents, JsonObject.class);
@@ -141,6 +163,44 @@ public class VerLoginCredSuc extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
+    public void ShowDialogErrorQR() {
+        dialog_errorqr.setContentView(R.layout.dialog_errorqr);
+
+        closeDialogErrorQR = (ImageView) dialog_errorqr.findViewById(R.id.closeDialogErrorQR);
+        imageErrorQR = (ImageView) dialog_errorqr.findViewById(R.id.imageErrorQR);
+        okbtn = (Button) dialog_errorqr.findViewById(R.id.okbtn);
+        titleErrorQR = (TextView) dialog_errorqr.findViewById(R.id.titleErrorQR);
+        exErrorRQ = (TextView) dialog_errorqr.findViewById(R.id.exErrorRQ);
+
+        final Activity activity = this;
+        okbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator integrator = new IntentIntegrator(activity);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Scan");
+                integrator.setCameraId(0);
+                integrator.setCaptureActivity(CaptureActivityPortrait.class);
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.initiateScan();
+
+            }
+        });
+
+        closeDialogErrorQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_errorqr.dismiss();
+            }
+        });
+
+        dialog_errorqr.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_errorqr.show();
+    }
+
 
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

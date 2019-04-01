@@ -1,20 +1,30 @@
 package ramos.pat.com.vieweventsfragments;
 
 import android.content.Intent;
+<<<<<<< Updated upstream
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+=======
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+>>>>>>> Stashed changes
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+<<<<<<< Updated upstream
 import android.widget.Toast;
+=======
+>>>>>>> Stashed changes
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
+<<<<<<< Updated upstream
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -30,16 +40,26 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+=======
+
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> Stashed changes
 public class RegisterLoading extends AppCompatActivity {
     private TextView tvone ;
     private TextView tvtwo ;
     private LottieAnimationView LottieLoad;
+<<<<<<< Updated upstream
     public String registerUrl = "https://ec6a621c.ngrok.io/thomasianjourney/Register/registerUser";
+=======
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_loading);
+<<<<<<< Updated upstream
         stepView();
         lottie();
 
@@ -56,6 +76,9 @@ public class RegisterLoading extends AppCompatActivity {
     }
 
     public void lottie(){
+=======
+
+>>>>>>> Stashed changes
         //ANIMATION LOTTIE
         LottieLoad = findViewById(R.id.mainlottieLoad);
         LottieLoad.setScale(7f);
@@ -63,6 +86,7 @@ public class RegisterLoading extends AppCompatActivity {
         LottieLoad.setAnimation(R.raw.load);
         LottieLoad.playAnimation();
 
+<<<<<<< Updated upstream
         tvone = (TextView) findViewById(R.id.tvone);
         tvtwo = (TextView) findViewById(R.id.tvtwo);
         Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
@@ -70,6 +94,8 @@ public class RegisterLoading extends AppCompatActivity {
         tvtwo.startAnimation(myanim);
     }
     public void stepView(){
+=======
+>>>>>>> Stashed changes
         //STEPVIEW
 
         HorizontalStepView stepview = (HorizontalStepView) findViewById(R.id.step_view);
@@ -92,6 +118,7 @@ public class RegisterLoading extends AppCompatActivity {
                 .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.ic_check_black))
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.ic_radio))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(RegisterLoading.this, R.drawable.tiger_rar));
+<<<<<<< Updated upstream
     }
 
     public class OkHttpHandler extends AsyncTask<String, Void, String> {
@@ -190,3 +217,32 @@ public class RegisterLoading extends AppCompatActivity {
 
 
 
+=======
+
+        tvone = (TextView) findViewById(R.id.tvone);
+        tvtwo = (TextView) findViewById(R.id.tvtwo);
+        Animation myanim = AnimationUtils.loadAnimation(this,R.anim.mytransition);
+        tvone.startAnimation(myanim);
+        tvtwo.startAnimation(myanim);
+        final Intent i = new Intent(this,VerifyCode.class);
+//        //add animation
+//        Animatoo.animateSlideLeft(this);
+        Thread timer = new Thread() {
+            public void run () {
+                try {
+                    sleep(5000) ;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    startActivity(i);
+                    finish();
+                }
+            }
+        };
+        timer.start();
+    }
+
+
+}
+>>>>>>> Stashed changes

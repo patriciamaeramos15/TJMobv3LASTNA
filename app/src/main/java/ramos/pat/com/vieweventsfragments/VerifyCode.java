@@ -25,8 +25,11 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+<<<<<<< Updated upstream
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+=======
+>>>>>>> Stashed changes
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -50,7 +53,11 @@ public class VerifyCode extends AppCompatActivity {
     Button okbtn;
     TextView titleResend, exResend;
     ImageView closeDialogResend, imageResend;
+<<<<<<< Updated upstream
     PinEntryEditText numbercode;
+=======
+    PinEntryEditText pinEntry;
+>>>>>>> Stashed changes
     private LottieAnimationView LottieMail;
 
     public String registerUrl = "https://ec6a621c.ngrok.io/thomasianjourney/Register/checkCode";
@@ -127,6 +134,7 @@ public class VerifyCode extends AppCompatActivity {
 
                 System.out.print("Response: " + response.code());
 
+<<<<<<< Updated upstream
                 if (response.isSuccessful()) {
                     return response.body().string();
                 }
@@ -146,12 +154,38 @@ public class VerifyCode extends AppCompatActivity {
 
     public void lottie(){
         LottieMail = findViewById(R.id.mainlottieMail);
+=======
+        //ANIMATION LOTTIE
+        LottieMail = findViewById(R.id.mainlottieMail);
+
+>>>>>>> Stashed changes
         LottieMail.setScale(1.5f);
         LottieMail.setVisibility(View.VISIBLE);
         LottieMail.setAnimation(R.raw.mail);
         LottieMail.playAnimation();
+<<<<<<< Updated upstream
     }
     public void stepView() {
+=======
+
+        // ENTER DIGITS
+
+        pinEntry = (PinEntryEditText) findViewById(R.id.txt_pin_entry);
+        if (pinEntry != null) {
+            pinEntry.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
+                @Override
+                public void onPinEntered(CharSequence str) {
+                    if (str.toString().equals("123456")) {
+                        Toast.makeText(VerifyCode.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(VerifyCode.this, "FAIL", Toast.LENGTH_SHORT).show();
+                        pinEntry.setText(null);
+                    }
+                }
+            });
+        }
+
+>>>>>>> Stashed changes
         //STEPVIEW
 
         HorizontalStepView stepview = (HorizontalStepView) findViewById(R.id.step_view);
@@ -175,13 +209,56 @@ public class VerifyCode extends AppCompatActivity {
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(VerifyCode.this, R.drawable.ic_radio))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(VerifyCode.this, R.drawable.tiger_rar));
 
+<<<<<<< Updated upstream
     }
     public void openMain2Activity() {
         Intent intent = new Intent(this,Main2Activity.class);
         startActivity(intent);
     }
+=======
+
+        dialog_resend = new Dialog(this);
+
+        resend = findViewById(R.id.resend);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowDialogResend();
+            }
+        });
+
+//        cancelbtn = (Button) findViewById(R.id.cancelbtn);
+//        cancelbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openMain2Activity();
+//            }
+//        });
+//
+//        verifybtn = (Button) findViewById(R.id.verifybtn);
+//        verifybtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openConfirmCode();
+//            }
+//        });
+    }
+
+//    public void openMain2Activity() {
+//        Intent intent = new Intent(this,Main2Activity.class);
+//        startActivity(intent);
+//    }
+//
+//    public void openConfirmCode() {
+//        Intent intent = new Intent(this,ConfirmCode.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
+>>>>>>> Stashed changes
     public void ShowDialogResend() {
         dialog_resend.setContentView(R.layout.dialog_resend);
+
         closeDialogResend = (ImageView) dialog_resend.findViewById(R.id.closeDialogResend);
         imageResend = (ImageView) dialog_resend.findViewById(R.id.imageResend);
         okbtn = (Button) dialog_resend.findViewById(R.id.okbtn);
@@ -205,6 +282,12 @@ public class VerifyCode extends AppCompatActivity {
         dialog_resend.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_resend.show();
     }
+<<<<<<< Updated upstream
+=======
+
+    //ANIMATION
+
+>>>>>>> Stashed changes
     public void CancelAnim(View view) {
         if (view == findViewById(R.id.cancelbtn)) {
             //open verifycode
@@ -213,6 +296,7 @@ public class VerifyCode extends AppCompatActivity {
             Animatoo.animateSlideRight(this);
         }
     }
+<<<<<<< Updated upstream
 //    public void VerifyAnim(View view) {
 //        if (view == findViewById(R.id.verifybtn)) {
 //            open verifycode
@@ -254,3 +338,18 @@ public class VerifyCode extends AppCompatActivity {
 //    }
     }
 
+=======
+
+    //ANIMATION
+
+    public void VerifyAnim(View view) {
+        if (view == findViewById(R.id.verifybtn)) {
+            //open verifycode
+            startActivity(new Intent(this, ConfirmCode.class));
+            //add animation
+            Animatoo.animateSlideLeft(this);
+            finish();
+        }
+    }
+}
+>>>>>>> Stashed changes
