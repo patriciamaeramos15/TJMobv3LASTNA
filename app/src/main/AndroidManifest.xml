@@ -5,16 +5,17 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.location.network" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-feature
         android:name="android.hardware.camera.front"
-<<<<<<< Updated upstream
-        android:required="false" />
-=======
         android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
->>>>>>> Stashed changes
     <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
     <uses-feature
         android:name="android.hardware.camera.autofocus"
@@ -38,15 +39,19 @@
         android:roundIcon="@drawable/tjlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-<<<<<<< Updated upstream
-        <activity android:name=".RegisterLoading"></activity>
-=======
-        <activity android:name=".MenuPortfolio"></activity>
-        <activity android:name=".RegisterLoading" />
->>>>>>> Stashed changes
+        <activity
+            android:name=".MenuPortfolio"
+            android:label="View Portfolio"
+            android:parentActivityName=".SecondActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".RegisterLoading"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Splash"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,46 +63,63 @@
             android:name=".MainActivity"
             android:label="View Events"
             android:parentActivityName=".SecondActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".SecondActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".Main2Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".VerifyCode"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".ConfirmCode"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".VerifySuccess"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
+        <activity
+            android:name=".GPSActivate"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".Portfolio"
             android:label="View Portfolio"
-            android:parentActivityName=".SecondActivity"
+            android:parentActivityName=".MenuPortfolio"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Year1"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Year2"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Year3"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Year4"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".EventDetails"
             android:label="Event Details"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".SecondActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ScanSuccess"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />
@@ -107,9 +129,11 @@
         </activity>
         <activity
             android:name=".VerifyLoginCred"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen" />
         <activity
             android:name=".VerLoginCredSuc"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dark.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />
@@ -117,7 +141,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Help" />
+        <activity
+            android:name=".Help"
+            android:screenOrientation="portrait" />
         <activity android:name=".CaptureActivityPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />

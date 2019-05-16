@@ -2,6 +2,7 @@ package ramos.pat.com.vieweventsfragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,23 +45,34 @@ public class Tab2 extends Fragment {
     RecyclerView list;
     private RecyclerViewAdapter mRecyclerViewAdapter;
 
-    public String url = "https://e63eeab9.ngrok.io/thomasianjourney/Register/insertUpcomingEvents";
+    public String url = "https://thomasianjourney.website/Register/insertUpcomingEvents";
     public List<Contact> listContact = new ArrayList<>();
     public ProgressDialog dialog;
+    LinearLayout empty;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Intent i = getActivity().getIntent();
+        String[] tabs = i.getExtras().getStringArray("eventtab");
 
-        View rootView = inflater.inflate(R.layout.tab1, container, false);
-        list = rootView.findViewById(R.id.list1);
-        mRecyclerView = rootView.findViewById(R.id.list1);
+        View rootView;
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(getContext(),listContact);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        if(tabs[1].equals("true")){
+            rootView = inflater.inflate(R.layout.tab1, container, false);
+            list = rootView.findViewById(R.id.list1);
+            mRecyclerView = rootView.findViewById(R.id.list1);
+
+            mRecyclerViewAdapter = new RecyclerViewAdapter(getContext(),listContact);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
+        }else{
+            rootView = inflater.inflate(R.layout.activity_emptytab, container, false);
+        }
 
         return rootView;
     }
@@ -77,11 +90,12 @@ public class Tab2 extends Fragment {
 
         String collegeId = "1";
         String yearLevel = "1";
+        String accountId = "1";
         Tab2.OkHttpHandler okHttpHandler = new Tab2.OkHttpHandler();
         //DITO PAPASOK YUNG ID NG EVENT SA VIEW EVENTS
 
 
-        okHttpHandler.execute(url, collegeId, yearLevel);
+        okHttpHandler.execute(url, collegeId, yearLevel, accountId);
 
     }
     public class OkHttpHandler extends AsyncTask<String, Void, String> {
@@ -106,6 +120,7 @@ public class Tab2 extends Fragment {
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("collegeId", params[1])
                         .addFormDataPart("yearLevel", params[2])
+                        .addFormDataPart("accountId", params[3])
                         .build();
 
                 Request.Builder builder = new Request.Builder();
@@ -137,16 +152,14 @@ public class Tab2 extends Fragment {
 //            }
 //            textView.setText(s);
             insertList(s);
-//            Toast.makeText(getContext(), ""+s, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Tab 2: "+s, Toast.LENGTH_SHORT).show();
 
         }
     }
 
     public void insertList(String s){
         dialog.dismiss();
-
         if(!TextUtils.isEmpty(s)){
-
             try{
                 Gson gson = new Gson();
 
@@ -155,6 +168,7 @@ public class Tab2 extends Fragment {
                 if  (jsonObject.has("data")) {
 
                     JsonArray dataArray = jsonObject.get("data").getAsJsonArray();
+
                     for (int i = 0 ; i < dataArray.size() ; i++){
 
                         JsonObject dataObject = dataArray.get(i).getAsJsonObject();
@@ -162,7 +176,7 @@ public class Tab2 extends Fragment {
                         String activityName = dataObject.get("activityName").getAsString();
                         String eventDate = dataObject.get("eventDate").getAsString();
                         String activityId = dataObject.get("activityId").getAsString();
-                        String status = "none";
+                        String status = "upcoming";
 
                         listContact.add(new Contact(activityName, eventVenue, eventDate, activityId, status));
                     }
@@ -176,7 +190,9 @@ public class Tab2 extends Fragment {
                 }
 
             }catch(Exception err){
-//                Toast.makeText(getContext(), "No Events found", Toast.LENGTH_LONG).show();
+//                mRecyclerView.setVisibility(View.GONE);
+//                empty = getActivity().findViewById(R.id.empty);
+//                empty.setVisibility(View.VISIBLE);
             }
         }
 

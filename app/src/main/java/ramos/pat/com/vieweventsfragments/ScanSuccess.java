@@ -65,23 +65,17 @@ public class ScanSuccess extends AppCompatActivity {
             startActivity(new Intent(this, SecondActivity.class));
             //add animation
             Animatoo.animateCard(this);
-<<<<<<< Updated upstream
-=======
             finish();
->>>>>>> Stashed changes
         }
     }
 
     public void PortAnim(View view) {
         if (view == findViewById(R.id.vport_btn)) {
             //go to portfolio
-            startActivity(new Intent(this, Portfolio.class));
+            startActivity(new Intent(this, MenuPortfolio.class));
             //add animation
             Animatoo.animateCard(this);
-<<<<<<< Updated upstream
-=======
             finish();
->>>>>>> Stashed changes
         }
     }
 }
